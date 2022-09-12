@@ -3,17 +3,17 @@
 #include <string.h>
 #include <list>
 
+class DiscAlun;
+class DepDisc;
 class Departamento;
-class Aluno;
-class Cursar;
 
 class Disciplina
 {
 private:
   int id;
   char nome[30];
-  Departamento* dep;
-  std::list<Cursar*> c;
+  std::list<DiscAlun*> c;
+  std::list<DepDisc*> d;
 public:
   Disciplina();
   Disciplina(char s[]);
@@ -22,9 +22,11 @@ public:
   int getId();
   void setNome(char s[]);
   char* getNome();
-  void setDepartamento(Departamento* d);
-  Departamento* getDepartamento();
-  void setCursar(Cursar* c);
-  Cursar* getCursar(int i);
-  std::list<Cursar*> getCursar();
+  void setDiscAlun(DiscAlun* c);
+  DiscAlun* getDiscAlun(int i);
+  std::list<DiscAlun*> getDiscAlun();
+  void createDepDisc(Departamento* d);
+  void deleteDepDisc(int i);
+  DepDisc* getDepDisc(int i);
+  std::list<DepDisc*> getDepDisc();
 };

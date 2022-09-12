@@ -2,19 +2,19 @@
 
 Aluno::Aluno(): Pessoa()
 {
-  univ = NULL;
+  u = NULL;
   dep = NULL;
 }
 
 Aluno::Aluno(int d, int m, int a, char s[]): Pessoa(d, m, a, s)
 {
-  univ = NULL;
+  u = NULL;
   dep = NULL;
 }
 
 Aluno::~Aluno()
 {
-  std::list<Cursar*>::iterator j;
+  std::list<DiscAlun*>::iterator j;
   j = c.begin();
   for (int k = 0; k < c.size(); k++)
   {
@@ -43,38 +43,28 @@ Departamento* Aluno::getDep()
   return dep;
 }
 
-void Aluno::setUniv(Universidade* u)
+void Aluno::createDiscAlun(Disciplina* d)
 {
-  univ = u;
-}
-
-Universidade* Aluno::getUniv()
-{
-  return univ;
-}
-
-void Aluno::createCursar(Disciplina* d)
-{
-  Cursar* c = new Cursar(d, this);
-  d->setCursar(c);
+  DiscAlun* c = new DiscAlun(d, this);
+  d->setDiscAlun(c);
   this->c.push_back(c);
 }
 
-void Aluno::deleteCursar(int i)
+void Aluno::deleteDiscAlun(int i)
 {
-  std::list<Cursar*>::iterator j;
+  std::list<DiscAlun*>::iterator j;
   j = c.begin();
   for (int k = 0; k < i; k++)
   {
     j++;
   }
-  (*j)->~Cursar();
+  (*j)->~DiscAlun();
   delete *j;
 }
 
-Cursar* Aluno::getCursar(int i)
+DiscAlun* Aluno::getDiscAlun(int i)
 {
-  std::list<Cursar*>::iterator j;
+  std::list<DiscAlun*>::iterator j;
   j = c.begin();
   for (int k = 0; k < i; k++)
   {
@@ -83,7 +73,26 @@ Cursar* Aluno::getCursar(int i)
   return *j;
 }
 
-std::list<Cursar*> Aluno::getCursar()
+std::list<DiscAlun*> Aluno::getDiscAlun()
 {
   return c;
 }
+
+
+void Aluno::createUniAlun(Universidade* uni)
+{
+  UniAlun* u = new UniAlun(uni, this);
+  uni->setUniAlun(u);
+  this->u = u;
+}
+
+void Aluno::deleteUniAlun()
+{
+  u->~UniAlun();
+}
+
+UniAlun* Aluno::getUniAlun()
+{
+  return u;
+}
+

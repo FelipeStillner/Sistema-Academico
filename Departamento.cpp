@@ -1,6 +1,4 @@
 #include "Departamento.h"
-#include <string.h>
-#include "Universidade.h"
 
 Departamento::Departamento()
 {
@@ -50,15 +48,15 @@ Universidade* Departamento::getUniv()
   return univ;
 }
 
-void Departamento::setDisciplina(Disciplina* d)
+void Departamento::setDepDisc(DepDisc* d)
 {
-  disciplinas.push_back(d);
+  this->d.push_back(d);
 }
 
-Disciplina* Departamento::getDisciplina(int i)
+DepDisc* Departamento::getDepDisc(int i)
 {
-  std::list<Disciplina*>::iterator j;
-    j = disciplinas.begin();
+  std::list<DepDisc*>::iterator j;
+    j = d.begin();
     for (int k = 0; k < i; k++)
     {
         j++;
@@ -66,7 +64,7 @@ Disciplina* Departamento::getDisciplina(int i)
     return *j;
 }
 
-std::list<Disciplina*> Departamento::getDisciplinas()
+std::list<DepDisc*> Departamento::getDepDisc()
 {
-  return disciplinas;
+  return d;
 }

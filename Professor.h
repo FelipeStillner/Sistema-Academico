@@ -2,6 +2,7 @@
 
 #include "Pessoa.h"
 #include "Universidade.h"
+#include "Departamento.h"
 
 class Professor : public Pessoa
 {

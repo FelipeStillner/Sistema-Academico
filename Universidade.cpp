@@ -1,4 +1,5 @@
 #include "Universidade.h"
+#include "Departamento.h"
 
 Universidade::Universidade()
 {
@@ -52,4 +53,25 @@ int Universidade::getId()
 std::list<Departamento*> Universidade::getDepartamentos()
 {
     return departamentos;
+}
+
+void Universidade::setUniAlun(UniAlun* a)
+{
+  this->a.push_back(a);
+}
+
+UniAlun* Universidade::getUniAlun(int i)
+{
+    std::list<UniAlun*>::iterator j;
+    j = a.begin();
+    for (int k = 0; k < i; k++)
+    {
+        j++;
+    }
+    return *j;
+}
+
+std::list<UniAlun*> Universidade::getUniAlun()
+{
+  return a;
 }
