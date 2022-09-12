@@ -20,7 +20,7 @@ public:
   void setNota2(float n);
   float getNota1();
   float getNota2();
-  float calcNotaFinal();
+  float getNotaFinal();
   Disciplina* getDisciplina();
   Aluno* getAluno();
 };

@@ -23,4 +23,18 @@ public:
     void Executar();
     void Menu();
     void deleteLists();
+    void menuCriar();
+    void menuSair();
+    void menuSalvar();
+    void menuPrint();
+    void menuInvalido();
+    void SalvaAlunos();
+    void RecuperaAlunos();
+    void Recuperar();
+    void RecuperaUniversidades();
+    void SalvaUniversidades();
+    void RecuperaDepartamentos();
+    void SalvaDepartamentos();
+    void RecuperaDisciplinas();
+    void SalvaDisciplinas();
 };

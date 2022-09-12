@@ -43,7 +43,7 @@ float DiscAlun::getNota2()
   return nota2;
 }
 
-float DiscAlun::calcNotaFinal()
+float DiscAlun::getNotaFinal()
 {
   notaFinal = (nota1+nota2)/2;
   return notaFinal;
