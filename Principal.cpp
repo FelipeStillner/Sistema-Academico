@@ -74,7 +74,7 @@ void Principal::menuCriar()
     std::cin >> n;
     if (n == 0) // sair
     {
-        std::cout << "Saindo";
+        menuSair();
     }
     else if(n == 1)// Aluno
     {
@@ -152,7 +152,7 @@ void Principal::menuCriar()
     }
     else
     {
-        std::cout << "Opcao invalida";
+        menuInvalido();
     }
     delete[] c;
 }
@@ -219,7 +219,7 @@ void Principal::menuPrint()
     }
     else
     {
-        std::cout << "Opcao invalida";
+        menuInvalido();
     }
 }
 
