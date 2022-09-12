@@ -16,6 +16,7 @@ Principal::~Principal()
 
 void Principal::Executar()
 {   
+    
     Recuperar();
 
     Menu();  
@@ -168,6 +169,7 @@ void Principal::menuSalvar()
     SalvaUniversidades();
     SalvaDepartamentos();
     SalvaDisciplinas();
+    //SalvaDiscAlun();
 }
 
 void Principal::Recuperar()
@@ -176,6 +178,7 @@ void Principal::Recuperar()
     RecuperaUniversidades();
     RecuperaDepartamentos();
     RecuperaDisciplinas();
+    RecuperaDiscAlun();
 }
 
 void Principal::menuPrint()
@@ -345,7 +348,7 @@ void Principal::SalvaDepartamentos()
     for (int k = 0; k < departamentos.size(); k++)
     {
         
-        Gravador << (*j)->getId ( ) << ' ' << ' ' << (*j)->getNome ( ) << endl;
+        Gravador << (*j)->getId ( ) << ' ' << (*j)->getNome ( ) << endl;
         j++;
     }
     Gravador.close();
@@ -395,7 +398,7 @@ void Principal::SalvaDisciplinas()
     for (int k = 0; k < disciplinas.size(); k++)
     {
         
-        Gravador << (*j)->getId ( ) << ' ' << ' ' << (*j)->getNome ( ) << endl;
+        Gravador << (*j)->getId ( ) << ' ' << (*j)->getNome ( ) << endl;
         j++;
     }
     Gravador.close();
@@ -430,3 +433,83 @@ void Principal::RecuperaDisciplinas()
     Recuperador.close();
 }
 
+void Principal::SalvaDiscAlun()
+{
+    ofstream Gravador("discAluns.dat", ios::out);
+
+    if(!Gravador)
+    {
+        cout << "Arquivo nao pode ser aberto" << endl;
+        return;
+    }
+
+    std::list<Disciplina*>::iterator i;
+    std::list<DiscAlun*>::iterator j;
+    i = disciplinas.begin();
+    for (int k = 0; k < disciplinas.size(); k++)
+    {
+        j = (*i)->getDiscAlun().begin();
+        for (int l = 0; l < (*i)->getDiscAlun().size(); l++)
+        {
+            Gravador << (*j)->getAluno()->getId() << ' ' << (*j)->getDisciplina()->getId() << " " << (*j)->getNota1() << " " << (*j)->getNota2() << endl;
+            j++;
+        }
+        i++;
+    }
+    Gravador.close();
+}
+
+void Principal::RecuperaDiscAlun()
+{
+    ifstream Recuperador("discAluns.dat", ios::in);
+
+    if(!Recuperador)
+    {
+        cout << "Arquivo nao pode ser aberto" << endl;
+        return;
+    }
+
+    while (!Recuperador.eof())
+    {
+        int AlunId, DiscId, nota1, nota2;
+        Aluno* a = NULL;
+        Disciplina* d = NULL;
+
+        Recuperador >> AlunId >> DiscId >> nota1 >> nota2;
+
+        std::list<Disciplina*>::iterator j;
+        j = disciplinas.begin();
+        for (int k = 0; k < disciplinas.size(); k++)
+        {
+            if ((*j)->getId() == AlunId)
+            {
+                d = *j;
+                break;
+            }
+            j++;
+        }
+
+        std::list<Aluno*>::iterator i;
+        i = alunos.begin();
+        for (int k = 0; k < alunos.size(); k++)
+        {   
+            if((*j)->getId() == DiscId)
+            {
+                a = *i;
+            }
+            i++;
+        }
+
+        if (a == NULL || d == NULL)
+        {
+            cout << "Erro";
+        }
+        else
+        {
+            (a)->createDiscAlun(d);
+            a->getDiscAlun(0)->setNota1(nota1);
+            a->getDiscAlun(0)->setNota2(nota2);
+        }
+    }
+    Recuperador.close();
+}

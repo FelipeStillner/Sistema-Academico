@@ -37,4 +37,6 @@ public:
     void SalvaDepartamentos();
     void RecuperaDisciplinas();
     void SalvaDisciplinas();
+    void SalvaDiscAlun();
+    void RecuperaDiscAlun();
 };
