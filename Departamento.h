@@ -3,7 +3,6 @@
 #include <list>
 #include "Universidade.h"
 #include "Disciplina.h"
-#include "DepDisc.h"
 
 class Departamento
 {
@@ -11,7 +10,7 @@ private:
   int id;
   char nome[30];
   Universidade* univ;
-  std::list<DepDisc*> d;
+  std::list<Disciplina*> d;
 public:
   Departamento();
   Departamento(char* n);
@@ -22,7 +21,7 @@ public:
   int getId();
   void setUniv(Universidade* u);
   Universidade* getUniv();
-  void setDepDisc(DepDisc* d);
-  DepDisc* getDepDisc(int i);
-  std::list<DepDisc*> getDepDisc();
+  void setDisciplina(Disciplina* d);
+  Disciplina* getDisciplina(int i);
+  std::list<Disciplina*> getDisciplina();
 };

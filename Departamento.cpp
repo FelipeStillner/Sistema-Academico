@@ -48,14 +48,14 @@ Universidade* Departamento::getUniv()
   return univ;
 }
 
-void Departamento::setDepDisc(DepDisc* d)
+void Departamento::setDisciplina(Disciplina* d)
 {
   this->d.push_back(d);
 }
 
-DepDisc* Departamento::getDepDisc(int i)
+Disciplina* Departamento::getDisciplina(int i)
 {
-  std::list<DepDisc*>::iterator j;
+  std::list<Disciplina*>::iterator j;
     j = d.begin();
     for (int k = 0; k < i; k++)
     {
@@ -64,7 +64,7 @@ DepDisc* Departamento::getDepDisc(int i)
     return *j;
 }
 
-std::list<DepDisc*> Departamento::getDepDisc()
+std::list<Disciplina*> Departamento::getDisciplina()
 {
   return d;
 }

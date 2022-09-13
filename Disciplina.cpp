@@ -1,6 +1,5 @@
 #include "Disciplina.h"
 #include "DiscAlun.h"
-#include "DepDisc.h"
 #include "Departamento.h"
 
 Disciplina::Disciplina()
@@ -57,20 +56,12 @@ std::list<DiscAlun*> Disciplina::getDiscAlun()
   return c;
 }
 
-void Disciplina::createDepDisc(Departamento* dep)
+void Disciplina::setDepartamento(Departamento* dep)
 {
-  DepDisc* d = new DepDisc(this, dep);
-  dep->setDepDisc(d);
-  this->d = d;
+  d = dep;
 }
 
-void Disciplina::deleteDepDisc()
-{
-  d->~DepDisc();
-  delete d;
-}
-
-DepDisc* Disciplina::getDepDisc()
+Departamento* Disciplina::getDepartamento()
 {
   return d;
 }

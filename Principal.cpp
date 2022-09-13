@@ -157,7 +157,8 @@ void Principal::menuCriar()
             j++;
         }
 
-        d->createDepDisc(*j);
+        d->setDepartamento(*j);
+        (*j)->setDisciplina(d);
         d->setId(contDisciplinas);
         disciplinas.push_back(d);
         contDisciplinas++;
@@ -180,7 +181,7 @@ void Principal::menuSalvar()
     SalvaUniversidades();
     SalvaDepartamentos();
     SalvaDisciplinas();
-    //SalvaDiscAlun();
+    SalvaDiscAlun();
 }
 
 void Principal::Recuperar()
@@ -189,7 +190,7 @@ void Principal::Recuperar()
     RecuperaDepartamentos();
     RecuperaDisciplinas();
     RecuperaAlunos();
-    //RecuperaDiscAlun();
+    RecuperaDiscAlun();
 }
 
 void Principal::menuPrint()
@@ -440,7 +441,7 @@ void Principal::SalvaDisciplinas()
     for (int k = 0; k < disciplinas.size(); k++)
     {
         
-        Gravador << (*j)->getId ( ) << ' ' << (*j)->getNome ( ) << ' ' << (*j)->getDepDisc()->getDepartamento()->getId() << endl;
+        Gravador << (*j)->getId ( ) << ' ' << (*j)->getNome ( ) << ' ' << (*j)->getDepartamento()->getId() << endl;
         j++;
     }
     Gravador.close();
@@ -476,7 +477,8 @@ void Principal::RecuperaDisciplinas()
             {
                 if ((*j)->getId() == dId)
                 {
-                    disciplina->createDepDisc(*j);
+                    disciplina->setDepartamento(*j);
+                    (*j)->setDisciplina(disciplina);
                     break;
                 }
                 j++;
@@ -509,7 +511,7 @@ void Principal::SalvaDiscAlun()
         j = (*i)->getDiscAlun().begin();
         for (int l = 0; l < (*i)->getDiscAlun().size(); l++)
         {
-            Gravador << (*j)->getAluno()->getId() << ' ' << (*j)->getDisciplina()->getId() << " " << (*j)->getNota1() << " " << (*j)->getNota2() << endl;
+            Gravador << (*j)->getAluno()->getId() << ' ' << (*i)->getId() << ' ' << (*j)->getNota1() << ' ' << (*j)->getNota2() << endl;
             j++;
         }
         i++;
@@ -539,7 +541,7 @@ void Principal::RecuperaDiscAlun()
         j = disciplinas.begin();
         for (int k = 0; k < disciplinas.size(); k++)
         {
-            if ((*j)->getId() == AlunId)
+            if ((*j)->getId() == DiscId)
             {
                 d = *j;
                 break;
@@ -551,9 +553,10 @@ void Principal::RecuperaDiscAlun()
         i = alunos.begin();
         for (int k = 0; k < alunos.size(); k++)
         {   
-            if((*j)->getId() == DiscId)
+            if((*i)->getId() == AlunId)
             {
                 a = *i;
+                break;
             }
             i++;
         }

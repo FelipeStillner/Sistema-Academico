@@ -3,7 +3,6 @@
 #include "Aluno.h"
 #include "DiscAlun.h"
 #include "Departamento.h"
-#include "DepDisc.h"
 #include "Disciplina.h"
 #include "Pessoa.h"
 #include "Professor.h"
