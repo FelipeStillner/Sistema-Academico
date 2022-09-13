@@ -13,7 +13,7 @@ private:
   int id;
   char nome[30];
   std::list<DiscAlun*> c;
-  std::list<DepDisc*> d;
+  DepDisc* d;
 public:
   Disciplina();
   Disciplina(char s[]);
@@ -26,7 +26,6 @@ public:
   DiscAlun* getDiscAlun(int i);
   std::list<DiscAlun*> getDiscAlun();
   void createDepDisc(Departamento* d);
-  void deleteDepDisc(int i);
-  DepDisc* getDepDisc(int i);
-  std::list<DepDisc*> getDepDisc();
+  void deleteDepDisc();
+  DepDisc* getDepDisc();
 };

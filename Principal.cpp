@@ -7,6 +7,10 @@ using namespace std;
 
 Principal::Principal()
 {
+    contAlunos = 0;
+    contDepartamentos = 0;
+    contDisciplinas = 0;
+    contUniversidades = 0;
     Executar();
 }
 
@@ -16,7 +20,6 @@ Principal::~Principal()
 
 void Principal::Executar()
 {   
-    
     Recuperar();
 
     Menu();  
@@ -92,14 +95,18 @@ void Principal::menuCriar()
         std::cout << "RA:";
         std::cin >> n;
         al->setRA(n);
+        al->setId(contAlunos);
         alunos.push_back(al);
+        contAlunos++;
     }
     else if(n == 2)// Universidade
     {
         std::cout << "Nome:";
         scanf("%s", c);
         Universidade *u = new Universidade(c);
+        u->setId(contUniversidades);
         universidades.push_back(u);
+        contUniversidades++;
     }
     else if(n == 3)// Departamento
     {
@@ -124,7 +131,9 @@ void Principal::menuCriar()
         }
 
         d->setUniv(*j);
+        d->setId(contDepartamentos);
         departamentos.push_back(d);
+        contDepartamentos++;
     }
     else if(n == 4)// Disciplina
     {
@@ -149,7 +158,9 @@ void Principal::menuCriar()
         }
 
         d->createDepDisc(*j);
+        d->setId(contDisciplinas);
         disciplinas.push_back(d);
+        contDisciplinas++;
     }
     else
     {
@@ -174,17 +185,17 @@ void Principal::menuSalvar()
 
 void Principal::Recuperar()
 {
-    RecuperaAlunos();
     RecuperaUniversidades();
     RecuperaDepartamentos();
     RecuperaDisciplinas();
-    RecuperaDiscAlun();
+    RecuperaAlunos();
+    //RecuperaDiscAlun();
 }
 
 void Principal::menuPrint()
 {
     int n;
-    std::cout << "0 - Sair\n1 - Alunos\n2 - Universidades \n3 - Departamentos\n";
+    std::cout << "0 - Sair\n1 - Alunos\n2 - Universidades \n3 - Departamentos\n4 - Disciplinas\n";
     std::cin >> n;
     if (n == 0) // sair
     {
@@ -215,6 +226,16 @@ void Principal::menuPrint()
         std::list<Departamento*>::iterator j;
         j = departamentos.begin();
         while (j != departamentos.end())
+        {
+            std::cout << (*j)->getNome() << std::endl;
+            j++;
+        }
+    }
+    else if(n == 4)// Disciplina
+    {
+        std::list<Disciplina*>::iterator j;
+        j = disciplinas.begin();
+        while (j != disciplinas.end())
         {
             std::cout << (*j)->getNome() << std::endl;
             j++;
@@ -278,8 +299,11 @@ void Principal::RecuperaAlunos()
             aluno->setRA ( RA ); 
             aluno->setNome ( nome );
             alunos.push_back(aluno);
+            contAlunos++;
         }
     }
+    alunos.pop_back();
+    contAlunos--;
     Recuperador.close();
 }
 
@@ -328,8 +352,11 @@ void Principal::RecuperaUniversidades()
             universidade->setId ( id ); 
             universidade->setNome ( nome );
             universidades.push_back(universidade);
+            contUniversidades++;
         }
     }
+    universidades.pop_back();
+    contUniversidades--;
     Recuperador.close();
 }
 
@@ -347,8 +374,7 @@ void Principal::SalvaDepartamentos()
     j = departamentos.begin();
     for (int k = 0; k < departamentos.size(); k++)
     {
-        
-        Gravador << (*j)->getId ( ) << ' ' << (*j)->getNome ( ) << endl;
+        Gravador << (*j)->getId ( ) << ' ' << (*j)->getNome ( ) << ' ' << (*j)->getUniv()->getId() << endl;
         j++;
     }
     Gravador.close();
@@ -367,19 +393,35 @@ void Principal::RecuperaDepartamentos()
     while (!Recuperador.eof())
     {
         Departamento *departamento;
-        int id;
+        int id, uId, k = 0;
         char nome[30];
 
-        Recuperador >> id >> nome;
+        Recuperador >> id >> nome >> uId;
 
         if ( 0 != strcmp ( nome, "" ) ) 
         {
             departamento = new Departamento;
             departamento->setId ( id ); 
             departamento->setNome ( nome );
+
+            std::list<Universidade*>::iterator j;
+            j = universidades.begin();
+            while (j != universidades.end())
+            {
+                if ((*j)->getId() == uId)
+                {
+                    departamento->setUniv(*j);
+                    break;
+                }
+                j++;
+            }
+
             departamentos.push_back(departamento);
+            contDepartamentos++;
         }
     }
+    departamentos.pop_back();
+    contDepartamentos--;
     Recuperador.close();
 }
 
@@ -398,7 +440,7 @@ void Principal::SalvaDisciplinas()
     for (int k = 0; k < disciplinas.size(); k++)
     {
         
-        Gravador << (*j)->getId ( ) << ' ' << (*j)->getNome ( ) << endl;
+        Gravador << (*j)->getId ( ) << ' ' << (*j)->getNome ( ) << ' ' << (*j)->getDepDisc()->getDepartamento()->getId() << endl;
         j++;
     }
     Gravador.close();
@@ -417,19 +459,35 @@ void Principal::RecuperaDisciplinas()
     while (!Recuperador.eof())
     {
         Disciplina *disciplina;
-        int id;
+        int id, dId;
         char nome[30];
 
-        Recuperador >> id >> nome;
+        Recuperador >> id >> nome >> dId;
 
         if ( 0 != strcmp ( nome, "" ) ) 
         {
             disciplina = new Disciplina;
             disciplina->setId ( id ); 
             disciplina->setNome ( nome );
+
+            std::list<Departamento*>::iterator j;
+            j = departamentos.begin();
+            while (j != departamentos.end())
+            {
+                if ((*j)->getId() == dId)
+                {
+                    disciplina->createDepDisc(*j);
+                    break;
+                }
+                j++;
+            }
+
             disciplinas.push_back(disciplina);
+            contDisciplinas++;
         }
     }
+    disciplinas.pop_back();
+    contDisciplinas--;
     Recuperador.close();
 }
 

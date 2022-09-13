@@ -17,6 +17,10 @@ private:
     std::list<Universidade*> universidades;
     std::list<Disciplina*> disciplinas;
     std::list<Professor*> professores;
+    int contAlunos;
+    int contDepartamentos;
+    int contUniversidades;
+    int contDisciplinas;
 public: 
     Principal();
     ~Principal();
