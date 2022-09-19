@@ -28,6 +28,7 @@ public:
     void deleteLists();
     void menuCriar();
     void menuSair();
+    void menuCadastrar();
     void menuSalvar();
     void menuPrint();
     void menuInvalido();

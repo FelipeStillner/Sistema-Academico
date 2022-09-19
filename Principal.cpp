@@ -34,7 +34,7 @@ void Principal::Menu()
     char*c = new char[30];
     while (n != 0)
     {
-        std::cout << "0 - Sair\n1 - Criar\n2 - Print\n3 - Salvar\n";
+        std::cout << "0 - Sair\n1 - Criar\n2 - Print\n3 - Salvar\n4 - Cadastrar\n";
         std::cin >> n;
 
         if (n == 0) // sair
@@ -52,6 +52,10 @@ void Principal::Menu()
         else if (n == 3) // Salvar
         {
             menuSalvar();
+        }
+        else if (n == 4) // Cadastrar
+        {
+            menuCadastrar();
         }
         else
         {
@@ -175,6 +179,77 @@ void Principal::menuSair()
     std::cout << "Saindo";
 }
 
+void Principal::menuCadastrar()
+{
+    int n;
+    std::cout << "0 - Sair\n1 - Aluno em Disciplina\n";
+    std::cin >> n;
+
+    if (n == 0) // sair
+    {
+        menuSair();
+    }
+    else if (n == 1) // Aluno em Disciplina
+    {
+        int k = 0;
+        std::cout << "Aluno:" << std::endl;
+        std::list<Aluno*>::iterator j;
+        j = alunos.begin();
+        while (j != alunos.end())
+        {
+            std::cout << k << " - " <<(*j)->getNome() << std::endl;
+            j++;
+            k++;
+        }
+        std::cin >> n;
+        j = alunos.begin();
+        for (k = 0; k < n; k++)
+        {
+            j++;
+        }
+
+        k = 0;
+
+        std::cout << "Disciplina:" << std::endl;
+        std::list<Disciplina*>::iterator i;
+        i = disciplinas.begin();
+        while (i != disciplinas.end())
+        {
+            std::cout << k << " - " <<(*i)->getNome() << std::endl;
+            i++;
+            k++;
+        }
+        std::cin >> n;
+        i = disciplinas.begin();
+        for (k = 0; k < n; k++)
+        {
+            i++;
+        }
+
+        (*j)->createDiscAlun(*i);
+
+        std::list<DiscAlun*>::iterator l;
+        l = (*j)->getDiscAlun().begin();
+        while (l != (*j)->getDiscAlun().end())
+        {
+            if (((*l)->getAluno()->getId() == (*j)->getId()) && ((*l)->getDisciplina()->getId() == (*i)->getId()))
+            {
+                cout << "Nota1:" << endl;
+                cin >> k;
+                (*l)->setNota1(k);
+                cout << "Nota2:" << endl;
+                cin >> k;
+                (*l)->setNota2(k);
+            }
+            l++;
+        }
+    }
+    else
+    {
+        menuInvalido();
+    }
+}
+
 void Principal::menuSalvar()
 {
     SalvaAlunos();
@@ -196,7 +271,7 @@ void Principal::Recuperar()
 void Principal::menuPrint()
 {
     int n;
-    std::cout << "0 - Sair\n1 - Alunos\n2 - Universidades \n3 - Departamentos\n4 - Disciplinas\n";
+    std::cout << "0 - Sair\n1 - Alunos\n2 - Universidades \n3 - Departamentos\n4 - Disciplinas\n5 - Alunos em disciplinas\n";
     std::cin >> n;
     if (n == 0) // sair
     {
@@ -239,6 +314,23 @@ void Principal::menuPrint()
         while (j != disciplinas.end())
         {
             std::cout << (*j)->getNome() << std::endl;
+            j++;
+        }
+    }
+    else if(n == 5)// AlunDisc
+    {
+        int k, l;
+        list<Disciplina*>::iterator j;
+        list<DiscAlun*>::iterator i;
+        j = disciplinas.begin();
+        for (k = 0; k < contDisciplinas; k++)
+        {
+            i = (*j)->getDiscAlun().begin();
+            for (l = 0; l < (*j)->getDiscAlun().size(); l++)
+            {
+                cout  << (*j)->getNome()  << " " /*<< (*i)->getAluno()->getNome()*/ << std::endl;
+                i++;
+            }
             j++;
         }
     }
@@ -495,6 +587,7 @@ void Principal::RecuperaDisciplinas()
 
 void Principal::SalvaDiscAlun()
 {
+    int k;
     ofstream Gravador("discAluns.dat", ios::out);
 
     if(!Gravador)
@@ -502,11 +595,10 @@ void Principal::SalvaDiscAlun()
         cout << "Arquivo nao pode ser aberto" << endl;
         return;
     }
-
     std::list<Disciplina*>::iterator i;
     std::list<DiscAlun*>::iterator j;
     i = disciplinas.begin();
-    for (int k = 0; k < disciplinas.size(); k++)
+    for (k = 0; k < disciplinas.size(); k++)
     {
         j = (*i)->getDiscAlun().begin();
         for (int l = 0; l < (*i)->getDiscAlun().size(); l++)
@@ -568,8 +660,21 @@ void Principal::RecuperaDiscAlun()
         else
         {
             (a)->createDiscAlun(d);
-            a->getDiscAlun(0)->setNota1(nota1);
-            a->getDiscAlun(0)->setNota2(nota2);
+            int k, l;
+            list<Disciplina*>::iterator j;
+            j = disciplinas.begin();
+            for (k = 0; k < contDisciplinas; k++)
+            {
+                list<DiscAlun*>::iterator i;
+                i = (*j)->getDiscAlun().begin();
+                for (l = 0; l < (*j)->getDiscAlun().size(); l++)
+                {
+                    a->getDiscAlun(0)->setNota1(nota1);
+                    a->getDiscAlun(0)->setNota2(nota2);
+                    i++;
+                }
+                j++;
+            }
         }
     }
     Recuperador.close();
