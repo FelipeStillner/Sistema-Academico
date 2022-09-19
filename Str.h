@@ -22,4 +22,4 @@ private:
   char* pStr;
 };
 
-std::ostream& operator << (std::ostream& saida, ?& p);
+std::ostream &operator<< (std::ostream &saida, MinhaString& s);

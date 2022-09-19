@@ -7,6 +7,7 @@
 #include "Pessoa.h"
 #include "Professor.h"
 #include "Universidade.h"
+#include "Str.h"
 
 class Principal 
 {

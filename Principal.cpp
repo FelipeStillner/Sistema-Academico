@@ -256,7 +256,7 @@ void Principal::menuSalvar()
     SalvaUniversidades();
     SalvaDepartamentos();
     SalvaDisciplinas();
-    SalvaDiscAlun();
+    //SalvaDiscAlun();
 }
 
 void Principal::Recuperar()
@@ -265,7 +265,7 @@ void Principal::Recuperar()
     RecuperaDepartamentos();
     RecuperaDisciplinas();
     RecuperaAlunos();
-    RecuperaDiscAlun();
+    //RecuperaDiscAlun();
 }
 
 void Principal::menuPrint()

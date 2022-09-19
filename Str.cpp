@@ -62,22 +62,3 @@ std::ostream &operator<< ( std::ostream &saida, MinhaString& s )
   saida << s.getString();
   return saida; // possibilita encadeamento
 }
-
-int main()
-{
-  MinhaString S1 ( "Minha primeira string soh minha." ); MinhaString S2A, S2B;
-  S2A = "Operador de atribuicao sobrecarregado é muito útil."; S2B = S2A;
-  std::cout << S1 << std::endl; 
-  std::cout << S2A << std::endl; 
-  std::cout << S2B << std::endl; 
-  std::cout << std::endl;
-  // Operador ternário
-  // Se (Expressão) Então (ComandosA) Senão (ComandosB) // (Expressão) ? (ComandosA) : (ComandosB)
-  ( S2A == S2B ) ? ( std::cout << "S2A eh igual a S2B!" ) : ( std::cout << "S2A NAO eh igual a S2B!" ); 
-  std::cout << std::endl << std::endl;
-  (S1 ==S2B)?(std::cout<<"S1ehigualaS2B!"):(std::cout<<"S1NAOehigualaS2B!");
-  std::cout << std::endl << std::endl;
-  return 0;
-
-  return 0;
-}
