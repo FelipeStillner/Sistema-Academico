@@ -69,6 +69,7 @@ void Principal::deleteLists()
     departamentos.clear();
     disciplinas.clear();
     professores.clear();
+    pessoas.clear();
 }
 
 void Principal::menuCriar()

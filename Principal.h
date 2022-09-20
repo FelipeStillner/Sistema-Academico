@@ -11,6 +11,7 @@
 #include "Professor.h"
 #include "Universidade.h"
 #include "Str.h"
+#include "Estagiario.h"
 
 class Principal 
 {
@@ -20,6 +21,7 @@ private:
     std::list<Universidade*> universidades;
     std::list<Disciplina*> disciplinas;
     std::list<Professor*> professores;
+    std::list<Pessoa*> pessoas;
     int contAlunos;
     int contDepartamentos;
     int contUniversidades;

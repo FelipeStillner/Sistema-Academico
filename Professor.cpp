@@ -35,3 +35,29 @@ Departamento* Professor::getDep()
 {
     return dep;
 }
+
+void Professor::setSalario(float n)
+{
+  salario = n;
+}
+
+float Professor::getSalario()
+{
+  return salario;
+}
+
+void Professor::setBolsa(float n)
+{
+  bolsa = n;
+}
+
+float Professor::getBolsa()
+{
+  return bolsa;
+}
+
+float Professor::informaProventos()
+{
+  return bolsa + salario;
+}
+
