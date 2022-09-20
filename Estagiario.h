@@ -1,3 +1,4 @@
+#pragma once
 #include "Aluno.h"
 
 class Estagiario : public Aluno
