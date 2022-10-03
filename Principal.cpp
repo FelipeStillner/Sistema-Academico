@@ -1,4 +1,5 @@
 #include "Principal.h"
+#include <typeinfo>
 
 using namespace std;
 
